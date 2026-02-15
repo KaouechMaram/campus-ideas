@@ -1,19 +1,18 @@
-import { Component } from '@angular/core';
-import { Suggestion } from '../../models/suggestion';
-import { FormsModule } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { Suggestion } from '../../../models/suggestion';
 
 @Component({
-  selector: 'app-list-suggestion',
+  selector: 'app-suggestion-details',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
-  templateUrl: './list-suggestion.component.html',
-  styleUrls: ['./list-suggestion.component.css']
+  imports: [CommonModule, RouterLink],
+  templateUrl: './suggestion-details.html',
+  styleUrls: ['./suggestion-details.css']
 })
-export class ListSuggestionComponent {
+export class SuggestionDetailsComponent implements OnInit {
 
-  searchText: string = '';
+  suggestionId!: number;
 
   suggestions: Suggestion[] = [
     {
@@ -54,23 +53,20 @@ export class ListSuggestionComponent {
     }
   ];
 
-  favorites: Suggestion[] = [];
+  suggestion?: Suggestion;
 
-  likeSuggestion(s: Suggestion) {
-    s.nbLikes++;
-  }
+  constructor(private route: ActivatedRoute) {}
 
-  addToFavorites(s: Suggestion) {
-    if (!this.favorites.includes(s)) {
-      this.favorites.push(s);
-    }
-  }
+  ngOnInit(): void {
 
-  get filteredSuggestions() {
-    return this.suggestions.filter(s =>
-      s.title.toLowerCase().includes(this.searchText.toLowerCase()) ||
-      s.category.toLowerCase().includes(this.searchText.toLowerCase())
+    this.suggestionId = Number(
+      this.route.snapshot.paramMap.get('id')
     );
+
+    this.suggestion = this.suggestions.find(
+      s => s.id === this.suggestionId
+    );
+
   }
 
 }

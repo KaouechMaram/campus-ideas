@@ -26,6 +26,10 @@
       Ajouter aux favoris
     </button>
 
+    <button [routerLink]="['/suggestions', s.id]">
+      Details
+    </button>
+
   </div>
 
   <hr>
@@ -36,5 +40,9 @@
 <ul>
   <li *ngFor="let f of favorites">
     {{ f.title }}
+
+    <button [routerLink]="['/suggestions', f.id]">
+      Details
+    </button>
   </li>
 </ul>

@@ -1,0 +1,27 @@
+<h2>Détails de la suggestion</h2>
+
+<div *ngIf="suggestion; else notFound">
+
+  <h3>{{ suggestion.title }}</h3>
+
+  <p>{{ suggestion.description }}</p>
+
+  <p>Catégorie : {{ suggestion.category }}</p>
+
+  <p>Date : {{ suggestion.date | date }}</p>
+
+  <p>Status : {{ suggestion.status }}</p>
+
+  <p>Likes : {{ suggestion.nbLikes }}</p>
+
+</div>
+
+<ng-template #notFound>
+  <p>Suggestion non trouvée.</p>
+</ng-template>
+
+<br>
+
+<a routerLink="/suggestions">
+  Retour à la liste
+</a>
